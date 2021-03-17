@@ -3,7 +3,7 @@ import numpy as np
 from sklearn_pandas import DataFrameMapper
 from sklearn import preprocessing
 import sys 
-import cPickle as pickle
+import pickle
 from datetime import date
 import calendar
 import scipy.io as spi
@@ -495,6 +495,61 @@ def build_user_feature_matrix(week_ID):
 
     #Save the matrix. They are already in csr format
     spi.mmwrite("../Data/Validation/%s/user_feat_mtrx_%s.mtx" % (week_ID, week_ID) , ulist)
+
+
+def build_user_item_mtrx(week_ID):
+    """ Build user item matrix (for test and train datasets)
+    (sparse matrix, Mui[u,i] = 1 if user u has purchase item i, 0 otherwise)
+
+    arg : week_ID (str) validation week
+    """
+
+    print("Creating user_item matrix for LightFM")
+
+    # For now, only consider the detail dataset
+    cpdtr = pd.read_csv(
+        "../Data/Validation/%s/coupon_detail_train_validation_%s.csv" %
+        (week_ID, week_ID))
+    cpltr = pd.read_csv(
+        "../Data/Validation/%s/coupon_list_train_validation_%s.csv" %
+        (week_ID, week_ID))
+    cplte = pd.read_csv(
+        "../Data/Validation/%s/coupon_list_test_validation_%s.csv" %
+        (week_ID, week_ID))
+    ulist = pd.read_csv(
+        "../Data/Validation/%s/user_list_validation_%s.csv" %
+        (week_ID, week_ID))
+
+    # Build a dict with the coupon index in cpltr
+    d_ci_tr = {}
+    for i in range(len(cpltr)):
+        coupon = cpltr["COUPON_ID_hash"].values[i]
+        d_ci_tr[coupon] = i
+
+    # Build a dict with the user index in ulist
+    d_ui = {}
+    for i in range(len(ulist)):
+        user = ulist["USER_ID_hash"].values[i]
+        d_ui[user] = i
+
+    # Build the user x item matrices using scipy lil_matrix
+    Mui_tr = sps.lil_matrix((len(ulist), len(cpltr)), dtype=np.int8)
+
+    # Now fill Mui_tr with the info from cpdtr
+    for i in range(len(cpdtr)):
+        sys.stdout.write(
+            "\rProcessing row " + str(i) + "/ " + str(cpdtr.shape[0]))
+        sys.stdout.flush()
+        user = cpdtr["USER_ID_hash"].values[i]
+        coupon = cpdtr["COUPON_ID_hash"].values[i]
+        ui, ci = d_ui[user], d_ci_tr[coupon]
+        Mui_tr[ui, ci] = 1
+    print
+
+    # Save the matrix in the COO format
+    spi.mmwrite(
+        "../Data/Validation/%s/user_item_train_mtrx_%s.mtx" %
+        (week_ID, week_ID), Mui_tr)
 
 def build_item_feature_matrix(week_ID):
     """ Build item feature matrix 
