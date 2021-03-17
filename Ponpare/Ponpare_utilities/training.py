@@ -75,6 +75,8 @@ d_user_pred : key = user, value = predicted ranking of coupons in list_coupon
         epochs=ep,
         num_threads=4,
         verbose=True)
+    with open("../Data/Model/model.pickle", "wb") as fle:
+        pickle.dump(model, fle, protocol=pickle.HIGHEST_PROTOCOL)
 
     test = sps.csr_matrix(
         (len(list_user),
