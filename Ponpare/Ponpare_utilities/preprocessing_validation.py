@@ -18,7 +18,7 @@ def create_LabelEncoded_files(week_ID) :
         These files will be used in the similarity_distance.py script
     """
 
-    print "Create Label Encoded files"
+    print("Create Label Encoded files")
 
     def get_unix_time(row):
 
@@ -112,7 +112,7 @@ def create_LabelBinarized_files(week_ID) :
         arg : week_ID (str) validation week
     """
 
-    print "Create Label Binarized files"
+    print("Create Label Binarized files")
 
     def get_unix_time(row):
         """Convert to unix time. Neglect time of the day
@@ -243,7 +243,7 @@ def prepare_similarity_data(var_choice, week_ID):
     week_ID (str) validation week
     """
 
-    print "Create files for similarity recommendation"
+    print("Create files for similarity recommendation")
 
     #Load dictionary which stores the list of users without data
     d_user_list = {}
@@ -387,7 +387,7 @@ def build_biclass_user_item_mtrx(week_ID):
     arg : week_ID (str) validation week
     """
 
-    print "Creating biclass user_item matrix for LightFM"
+    print("Creating biclass user_item matrix for LightFM")
 
     #For now, only consider the detail dataset
     cpvtr = pd.read_csv("../Data/Validation/%s/coupon_visit_train_validation_%s.csv" % (week_ID, week_ID))
@@ -456,7 +456,7 @@ def build_user_feature_matrix(week_ID):
 
     """
 
-    print "Creating user_feature matrix for LightFM"
+    print("Creating user_feature matrix for LightFM")
 
     def age_function(age, age_low =0, age_up = 100):
         """Function to binarize age in age slices
@@ -502,7 +502,7 @@ def build_item_feature_matrix(week_ID):
     arg : week_ID (str) validation week
     """
 
-    print "Creating item_feature matrix for LightFM"
+    print("Creating item_feature matrix for LightFM")
 
     def binarize_function(val, val_low =0, val_up = 100):
         """Function to binarize a given column in slices

@@ -18,7 +18,7 @@ def predict_sex(week_ID):
     args : week_ID (str) the validation week
     """
 
-    print "Fitting xgboost model to infer purchaser sex from coupon features"
+    print("Fitting xgboost model to infer purchaser sex from coupon features")
 
     # Load coupon test vector
     train = pd.read_csv("../Data/Validation/%s/coupon_train_aggregated_LE_validation_%s.csv" % (week_ID, week_ID))
@@ -76,7 +76,7 @@ def get_similarity_distance(week_ID, var_choice, metric) :
 
     """
 
-    print "Compute similarity distance"
+    print("Compute similarity distance")
 
     #Save xgboost model
     if not os.path.isfile("../Data/Validation/%s/xgb_model/xgb_sex_pred.model" % week_ID):
@@ -207,8 +207,8 @@ def score_similarity_predictions():
         list_score.append(mapr.mapk(list_actual, list_pred))
 
     list_score = np.array(list_score)
-    print list_score 
-    print str(np.mean(list_score)) + " +/- " + str(np.std(list_score))
+    print(list_score )
+    print(str(np.mean(list_score)) + " +/- " + str(np.std(list_score)))
     return np.mean(list_score)
 
 if __name__ == '__main__':

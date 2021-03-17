@@ -16,7 +16,7 @@ def skim_visit_file():
     We remove them before processing further
     """
 
-    print "Removing coupons absent from coupon list"
+    print("Removing coupons absent from coupon list")
 
     #Load the data
     train_visit_df = pd.read_csv("../Data/Data_translated/coupon_visit_train_translated.csv")
@@ -45,7 +45,7 @@ def create_dict_user_list():
     """create a dict with list of users of interest
     """
 
-    print "Create dict of user list"
+    print("Create dict of user list")
 
     # # Load data frames
     user_df = pd.read_csv("../Data/Data_translated/user_list_translated.csv")
@@ -71,7 +71,7 @@ def create_LabelEncoded_files() :
         These files will be used in the similarity_distance.py script
     """
 
-    print "Create Label Encoded files"
+    print("Create Label Encoded files")
 
     def get_unix_time(row):
 
@@ -163,7 +163,7 @@ def create_LabelBinarized_files() :
         These files will be used in the similarity_distance.py script
     """
 
-    print "Create Label Binarized files"
+    print("Create Label Binarized files")
 
     def get_unix_time(row):
         """Convert to unix time. Neglect time of the day
@@ -293,7 +293,7 @@ def prepare_similarity_data(var_choice):
     It is called "1".
     """
 
-    print "Create files for similarity recommendation"
+    print("Create files for similarity recommendation")
 
     #Load dictionary which stores the list of users without data
     d_user_list = {}
@@ -434,7 +434,7 @@ def build_biclass_user_item_mtrx():
     (sparse matrix, Mui[u,i] = 1 if user u has purchase item i, -1 if viewed, not purchased)
     """
 
-    print "Creating biclass user_item matrix for LightFM"
+    print("Creating biclass user_item matrix for LightFM")
 
     #For now, only consider the detail dataset
     cpvtr = pd.read_csv("../Data/Data_translated/coupon_visit_train_translated.csv")
@@ -500,7 +500,7 @@ def build_user_feature_matrix():
     (feat = AGE, SEX_ID, these feat are then binarized)
     """
 
-    print "Creating user_feature matrix for LightFM"
+    print("Creating user_feature matrix for LightFM")
 
     def age_function(age, age_low =0, age_up = 100):
         """Function to binarize age in age slices
@@ -544,7 +544,7 @@ def build_item_feature_matrix():
     """ Build item feature matrix 
     """
 
-    print "Creating item_feature matrix for LightFM"
+    print("Creating item_feature matrix for LightFM")
 
     def binarize_function(val, val_low =0, val_up = 100):
         """Function to binarize a given column in slices

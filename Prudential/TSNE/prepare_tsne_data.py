@@ -213,7 +213,7 @@ def prepare_tsne_binary_data():
 	list_bin = []
 	for col in all_data.columns.values :
 		if len(all_data[col].unique()) ==2 :
-			# print col, all_data[col].unique()
+			# print(col, all_data[col].unique())
 			list_bin.append(col)
 
 	all_data = all_data[list_bin].copy()
@@ -256,7 +256,7 @@ def prepare_tsne_ternary_data():
 	list_tern = []
 	for col in all_data.columns.values :
 		if len(all_data[col].unique()) ==3 :
-			# print col, all_data[col].unique()
+			# print(col, all_data[col].unique())
 			list_tern.append(col)
 
 	all_data = all_data[list_tern].copy()

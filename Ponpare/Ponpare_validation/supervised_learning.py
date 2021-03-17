@@ -23,8 +23,8 @@ def prepare_test_df(ulist, cplte, list_col_test, week_ID):
            list_col_test (list) list of columns (= features) to keep
     """
 
-    print "Computing cartesian product of ulist and cplte."
-    print "This may take a while"
+    print("Computing cartesian product of ulist and cplte.")
+    print("This may take a while")
 
     # Create new col and merge on it to obtain the cartesian product
     ulist["key"] = 1
@@ -208,7 +208,7 @@ def fit_xgboost(week_ID, metric):
     d_user_pred : key = user, value = predicted ranking of coupons in list_coupon
     """
 
-    print "Fitting xgboost with metric", metric
+    print("Fitting xgboost with metric", metric)
 
     #Get data for classification
     X_train, y_train, d_info = prepare_data(week_ID)
@@ -275,7 +275,7 @@ def fit_SVM(week_ID):
     d_user_pred : key = user, value = predicted ranking of coupons in list_coupon
     """
 
-    print "Fitting SVMrank"
+    print("Fitting SVMrank")
 
     #Get data for classification
     X_train, y_train, d_info = prepare_data(week_ID)
@@ -329,7 +329,7 @@ def score_submission():
 
     # Loop over validation weeks
     for week_ID in ["week51", "week52"] :
-        print "Training " + week_ID
+        print("Training " + week_ID)
         #Get predictions, manually choose metric and classifier
         d_user_pred, list_user_full, list_coupon = fit_xgboost(week_ID, "reg:linear")
         # d_user_pred, list_user_full, list_coupon = fit_SVM(week_ID)
@@ -356,11 +356,11 @@ def score_submission():
         list_pred = [d_user_pred[key] for key in list_user] 
 
         list_score.append(mapr.mapk(list_actual, list_pred))
-        print list_score
+        print(list_score)
 
     list_score = np.array(list_score)
-    print list_score 
-    print str(np.mean(list_score)) + " +/- " + str(np.std(list_score))
+    print(list_score )
+    print(str(np.mean(list_score)) + " +/- " + str(np.std(list_score)))
 
 
 if __name__ == "__main__":

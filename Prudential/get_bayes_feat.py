@@ -49,7 +49,7 @@ def get_bayes_features():
 		d_kde[i] = {"keras_reg1" : None, "knnreg": None, "linreg" : None, "xgb_reg" : None}
 		for col in list_col_reg :
 			kde = KernelDensity(bandwidth=0.2, atol=1E-2, rtol=1E-2)
-			print "Fitting class %s" % i, "for", col
+			print("Fitting class %s" % i, "for", col)
 			kde.fit(d_class[i][col])
 			pdf = np.exp(kde.score_samples(x_grid))
 			d_kde[i][col] = {"kde":kde, "pdf":pdf, "pdf_true":d_class[i][col]}
@@ -58,7 +58,7 @@ def get_bayes_features():
 	if not os.path.isfile("./Data/Level1_model_files/Train/bayesian_train.csv") :
 		for i in range(1,9) :
 			for col in list_col_reg :
-				print "Computing Bayesian stuff for class %s" %i, "for", col
+				print("Computing Bayesian stuff for class %s" %i, "for", col)
 				# Estimate class probability P(C) from data
 				df_train_out["PClass%s_%s" %(col,i)] = float(len(df_train_out[df_train_out["Response"]==i]))/float(len(df_train_out))
 				# Get P(X=x|C=c)
@@ -86,7 +86,7 @@ def get_bayes_features():
 	if not os.path.isfile("./Data/Level1_model_files/Test/bayesian_test.csv") :
 		for i in range(1,9) :
 			for col in list_col_reg :
-				print "Computing Bayesian stuff for class %s" %i, "for", col
+				print("Computing Bayesian stuff for class %s" %i, "for", col)
 				# Estimate class probability P(C) from data
 				df_test_out["PClass%s_%s" %(col,i)] = float(len(df_train_out[df_train_out["Response"]==i]))/float(len(df_train_out))
 				# Get P(X=x|C=c)

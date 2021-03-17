@@ -253,7 +253,7 @@ def fit_xgboost(metric):
         for i in range(min(1000, len(temp_list_user))):
             user = temp_list_user[i]
             d_user_pred[user] = y_test[i*no_cpt: (i+1)*no_cpt]
-    print 
+    print()
 
     # Compute score for users, apply MinMaxScaler for blending later on
     for i, user in enumerate(list_user) :

@@ -130,7 +130,7 @@ def optimise_similarity():
             except KeyError :
                 d_user_pred[week_ID][key] = []
 
-    print "Loading OK"
+    print("Loading OK")
 
     def objective_function(x_int):
         objective_function.n_iterations += 1
@@ -172,7 +172,7 @@ def optimise_similarity():
 
         list_score = np.array(list_score)
 
-        print objective_function.n_iterations, \
+        print(objective_function.n_iterations, \)
             "gnr, disc, disp, large, small, val, us_sum, sex =", gnr, disc, disp, large, small, val, us_sum, sex, \
             "\nMean of MAP = ", np.mean(list_score), \
             "\n Std of MAP = ", np.std(list_score)
@@ -191,7 +191,7 @@ def optimise_similarity():
         algo=tpe.suggest,
         max_evals=10)
 
-    print best
+    print(best)
     objective_function(tuple([best[key] for key in ["gnr", "disc", "disp", "large", "small", "val", "us_sum", "sex"]]))
 
 if __name__ == '__main__':

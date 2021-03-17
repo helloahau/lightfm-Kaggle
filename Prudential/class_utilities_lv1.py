@@ -3,9 +3,9 @@ import numpy as np
 #Set the seed
 ##############
 np.random.seed(1000)
-print "-"*20
-print "SEED set to 1000" 
-print "-"*20
+print("-"*20)
+print("SEED set to 1000" )
+print("-"*20)
 
 from sklearn.base import BaseEstimator
 import sklearn.cross_validation as cv
@@ -79,7 +79,7 @@ class Level1Model():
         n_folds = self.d_model[model_name]["n_folds"]
         kf = cv.KFold(y.size, n_folds=n_folds)
         for icv, (train_indices, oos_indices) in enumerate(kf):
-            print "CV fold:", str(icv+1) + "/" + str(n_folds)
+            print("CV fold:", str(icv+1) + "/" + str(n_folds))
             X_train, y_train = X[train_indices], y[train_indices]
             X_oos = X[oos_indices]
 
@@ -199,7 +199,7 @@ class Level1Model():
                 feat_choice = self.d_model[model_name]["feat_choice"]
                 X, y, Id = prep.prepare_lv1_data(feat_choice, "train")
                 y_keep = y.copy() # keep a copy of y to deal with classifier which may modify y
-                print "Compute OOS pred for model: ", model_name
+                print("Compute OOS pred for model: ", model_name)
                 # Compute OOS preds
                 y_pred_oos, list_col = self._get_oos_preds(X, y, Id, model_name)
                 #Save predictions to csv file with pandas
@@ -347,7 +347,7 @@ class Level1Model():
                 feat_choice = self.d_model[model_name]["feat_choice"]
                 X_train, y_train, Id_train = prep.prepare_lv1_data(feat_choice, "train")
                 X_test,dummy, Id_test = prep.prepare_lv1_data(feat_choice, "test")
-                print "Compute test pred for model: ", model_name
+                print("Compute test pred for model: ", model_name)
                 # Compute test preds
                 y_pred_test, list_col = self._get_test_preds(X_train, y_train, Id_train, X_test, Id_test, model_name)
 

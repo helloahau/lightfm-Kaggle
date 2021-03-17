@@ -10,7 +10,7 @@ import cPickle as pickle
 
 def fit_model(week_ID, no_comp, lr, ep):
 	""" Fit the lightFM model to all weeks in list_week_ID.
-	Then print the results for MAPat10
+	Then print(the results for MAPat10)
 	
 	args : week_ID validation test week
 	no_comp, lr, ep = (int, float, int) number of components, learning rate, number of epochs for lightFM model
@@ -22,7 +22,7 @@ def fit_model(week_ID, no_comp, lr, ep):
 
 	"""
 
-	print "Fit lightfm model for %s" % week_ID
+	print("Fit lightfm model for %s" % week_ID)
 
 	#Load data
 	Mui_train = spi.mmread("../Data/Validation/%s/biclass_user_item_train_mtrx_%s.mtx" % (week_ID, week_ID))
@@ -30,8 +30,8 @@ def fit_model(week_ID, no_comp, lr, ep):
 	itrf      = spi.mmread("../Data/Validation/%s/train_item_feat_mtrx_%s.mtx" % (week_ID, week_ID))
 	itef      = spi.mmread("../Data/Validation/%s/test_item_feat_mtrx_%s.mtx" % (week_ID, week_ID))
 
-	#Print shapes as a check
-	print "user_features shape: %s,\nitem train features shape: %s,\nitem test features shape: %s"   % (uf.shape, itrf.shape, itef.shape)
+	#Print(shapes as a check)
+	print("user_features shape: %s,\nitem train features shape: %s,\nitem test features shape: %s"   % (uf.shape, itrf.shape, itef.shape))
 
 	#Load test coupon  and user lists
 	cplte       = pd.read_csv("../Data/Validation/" + week_ID + "/coupon_list_test_validation_" + week_ID +".csv")
@@ -107,11 +107,11 @@ def score_lightFM(no_comp, lr, ep):
 		list_pred = [d_user_pred[key] for key in list_user] 
 
         list_score.append(mapr.mapk(list_actual, list_pred))
-        print list_score
+        print(list_score)
 
 	list_score = np.array(list_score)
-	print list_score 
-	print str(np.mean(list_score)) + " +/- " + str(np.std(list_score))
+	print(list_score )
+	print(str(np.mean(list_score)) + " +/- " + str(np.std(list_score)))
 
 if __name__ == "__main__": 
 

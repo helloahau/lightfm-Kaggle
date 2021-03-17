@@ -36,12 +36,12 @@ def check_test_set() :
 
 	for el in lm :
 		if el != "06":
-			print el 
+			print(el )
 
 	for el in ld :
-		print el
+		print(el)
 		if int(el) >30 or int(el) <24 :
-			print el
+			print(el)
 
 def check_user_visit_detail():
 	"""Check that all users who have bought have visited
@@ -59,8 +59,8 @@ def check_user_visit_detail():
 	for el in detail_list :
 		if el not in visit_list :
 			c1+=1
-			print el
-	print "%s users have bought without visiting" % c1
+			print(el)
+	print("%s users have bought without visiting" % c1)
 
 def check_coupon_from_view_detail() :
 	""" Check that all coupons viewed/detailed are in the coupon train list
@@ -69,14 +69,14 @@ def check_coupon_from_view_detail() :
 
 	train_visit_df = pd.read_csv("../Data/Data_translated/coupon_visit_train_translated.csv")
 	visit_list = sorted(set(train_visit_df["VIEW_COUPON_ID_hash"].values))
-	print len(visit_list)
+	print(len(visit_list))
 
 	train_detail_df = pd.read_csv("../Data/Data_translated/coupon_detail_train_translated.csv")
 	detail_list = sorted(set(train_detail_df["COUPON_ID_hash"].values))
 
 	coupon_list_train = pd.read_csv("../Ponpare/Data_translated/coupon_list_train_translated.csv")
 	coupon_list = sorted(set(coupon_list_train["COUPON_ID_hash"].values))
-	print len(coupon_list)
+	print(len(coupon_list))
 
 	#VIEW / LIST COUPON
 	list_view_no_list = []
@@ -89,8 +89,8 @@ def check_coupon_from_view_detail() :
 		if el not in visit_list :
 			list_list_no_view.append(el)
 
-	print len(list_view_no_list)
-	print len(list_list_no_view)
+	print(len(list_view_no_list))
+	print(len(list_list_no_view))
 
 	#DETAIL / LIST COUPON
 	list_detail_no_list = []
@@ -103,12 +103,12 @@ def check_coupon_from_view_detail() :
 		if el not in detail_list :
 			list_list_no_detail.append(el)
 
-	print len(list_detail_no_list)
-	print len(list_list_no_detail)
+	print(len(list_detail_no_list))
+	print(len(list_list_no_detail))
 
 
 if __name__ == "__main__":
-
+	pass
 	# check_user_visit()
 	# check_user_visit_detail()
 	# check_coupon_from_view_detail()

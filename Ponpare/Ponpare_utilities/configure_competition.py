@@ -42,8 +42,8 @@ if __name__ == "__main__":
     ##########################
     #Create validation sets
     ##########################
-	val.create_validation_set([2012,06,17], [2012, 06, 23], "week52")
-	val.create_validation_set([2012,06,10], [2012, 06, 16], "week51")
+	val.create_validation_set([2012,6,17], [2012, 6, 23], "week52")
+	val.create_validation_set([2012,6,10], [2012, 6, 16], "week51")
 
 	#Create more validation sets if needed
 	# create_validation_set([2012,06,3], [2012, 06, 9], "week50")

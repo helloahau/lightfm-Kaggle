@@ -58,7 +58,7 @@ def compute_distance_feat():
 		for k in [10, 25, 50, 75, 90]:
 			list_col.append(metric+ "_C" + str(i) + "_P" + str(k))
 
-	print "Computing distance data for train"
+	print("Computing distance data for train")
 	for i in range(60):
 		sys.stdout.write("\rProcessing row %s to row %s" % (1000*i, 1000*(i+1)))
 		sys.stdout.flush()
@@ -68,7 +68,7 @@ def compute_distance_feat():
 			X_perc_train[step*i:min(step*(i+1),X_train.shape[0]),5*k:5*(k+1)] = np.percentile(vec_dist[:,y_train==k],[10,25,50,75,90], axis=1).T 
 	print
 
-	print "Computing distance data for test"
+	print("Computing distance data for test")
 	for i in range(20):
 		sys.stdout.write("\rProcessing row %s to row %s" % (1000*i, 1000*(i+1)))
 		sys.stdout.flush()
@@ -117,11 +117,11 @@ def prepare_lv1_data(feature_choice, file_name):
 		# Drop Id and Response
 		df = df.drop(["Id", "Response"], 1)
 		# Deal with missing values
-		print "Dealing with NaN"
+		print("Dealing with NaN")
 		df["NULL"] = df.isnull().sum(axis=1)
 		df = df.fillna(-1)
 		#Get tsne data
-		print "Getting tsne data"
+		print("Getting tsne data")
 		df_tsne_full = pd.read_csv("./Data/Raw/tsne_full_%s.csv" % file_name, usecols = ["V1", "V2"])
 		df[["V1_full", "V2_full"]] = df_tsne_full[["V1", "V2"]]
 		df_tsne_binary = pd.read_csv("./Data/Raw/tsne_binary_%s.csv" % file_name, usecols = ["V1", "V2"])
@@ -129,7 +129,7 @@ def prepare_lv1_data(feature_choice, file_name):
 		df_tsne_distance = pd.read_csv("./Data/Raw/tsne_distance_%s.csv" % file_name, usecols = ["V1", "V2"])
 		df[["V1_distance", "V2_distance"]] = df_tsne_distance[["V1", "V2"]]
 
-		print "Comparison features"
+		print("Comparison features")
 		df["COMP_IH4_IH7"] = df["Insurance_History_4"].values == df["Insurance_History_7"].values
 		df["COMP_IH4_IH3"] = np.abs(df["Insurance_History_4"].values - df["Insurance_History_3"].values)
 		df["COMP_IH9_IH7"] = np.abs(df["Insurance_History_9"].values - df["Insurance_History_7"].values)
@@ -189,7 +189,7 @@ def prepare_lv1_data(feature_choice, file_name):
 
 	elif feature_choice in ["linreg", "logistic", "keras_reg1"]:
 
-		print "Preprocessing"
+		print("Preprocessing")
 		# Get data
 		df = pd.read_csv("./Data/Raw/%s.csv" % file_name)
 		if file_name == "test":
@@ -200,11 +200,11 @@ def prepare_lv1_data(feature_choice, file_name):
 		# Drop Id and Response
 		df = df.drop(["Id", "Response"], 1)
 		# Deal with missing values
-		print "Dealing with NaN"
+		print("Dealing with NaN")
 		df["NULLCOUNT"] = df.isnull().sum(axis=1)
 		df = df.fillna(df.median())
 		#Get tsne data
-		print "Getting tsne data"
+		print("Getting tsne data")
 		df_tsne_full = pd.read_csv("./Data/Raw/tsne_full_%s.csv" % file_name, usecols = ["V1", "V2"])
 		df[["V1_full", "V2_full"]] = df_tsne_full[["V1", "V2"]]
 		df_tsne_binary = pd.read_csv("./Data/Raw/tsne_binary_%s.csv" % file_name, usecols = ["V1", "V2"])
@@ -217,13 +217,13 @@ def prepare_lv1_data(feature_choice, file_name):
 		df[["V1_cosine", "V2_cosine"]] = df_tsne_cosine[["V1", "V2"]]
 
 		# Get correlation distance data
-		print "Getting correlation data"
+		print("Getting correlation data")
 		df_distance = pd.read_csv("./Data/Raw/%s_distance_correlation.csv" % file_name)
 		list_col_corr = [col for col in df_distance.columns.values if col != "Id" and col !="Response"]
 		df[list_col_corr] = df_distance[list_col_corr]
 
 		# Add custom features
-		print "Feature engineering"
+		print("Feature engineering")
 		df["SUMKEYWORD"] = np.zeros(len(df))
 		df["SUMINSURED"] = np.zeros(len(df))
 		for col in df.columns.values :
@@ -289,7 +289,7 @@ def prepare_lv1_data(feature_choice, file_name):
 			df["CEMPINFO"] += (df[col]==min_val).apply(lambda x :  1 if x else 0)
 			df["CEMPINFOMAX"] += (df[col]==max_val).apply(lambda x :  1 if x else 0)
 
-		print "Comparison features"
+		print("Comparison features")
 		df["COMP_IH4_IH7"] = df["Insurance_History_4"].values == df["Insurance_History_7"].values
 		df["COMP_IH4_IH3"] = np.abs(df["Insurance_History_4"].values - df["Insurance_History_3"].values)
 		df["COMP_IH9_IH7"] = np.abs(df["Insurance_History_9"].values - df["Insurance_History_7"].values)
@@ -306,7 +306,7 @@ def prepare_lv1_data(feature_choice, file_name):
 		df['Product_Info_2_num'] = pd.factorize(df['Product_Info_2_num'])[0]
 
 		# Custom variables
-		print "Kaggle features"
+		print("Kaggle features")
 		df['custom_var_1'] = df['Medical_History_15'] < 10
 		df['custom_var_3'] = df['Product_Info_4'] < 0.075
 		df['custom_var_4'] = df['Product_Info_4'] == 1
@@ -327,14 +327,14 @@ def prepare_lv1_data(feature_choice, file_name):
 		y = y[permut]
 		Id = Id[permut]
 
-		print "Standardizing"
+		print("Standardizing")
 		X = StandardScaler().fit_transform(X)
 
 		return X,y,Id
 
 	elif feature_choice == "xgb_reg":
 
-		print "Preprocessing"
+		print("Preprocessing")
 		# Get data
 		df = pd.read_csv("./Data/Raw/%s.csv" % file_name)
 		if file_name == "test":
@@ -345,7 +345,7 @@ def prepare_lv1_data(feature_choice, file_name):
 		# Drop Id and Response
 		df = df.drop(["Id", "Response"], 1)
 		# Deal with missing values
-		print "Dealing with NaN"
+		print("Dealing with NaN")
 		df["NULLCOUNT"] = df.isnull().sum(axis=1)
 		#Get tsne data
 		
@@ -357,7 +357,7 @@ def prepare_lv1_data(feature_choice, file_name):
 		df['Product_Info_2_num'] = pd.factorize(df['Product_Info_2_num'])[0]
 
 		# Custom variables
-		print "Kaggle features"
+		print("Kaggle features")
 		df['custom_var_1'] = df['Medical_History_15'] < 10
 		df['custom_var_3'] = df['Product_Info_4'] < 0.075
 		df['custom_var_4'] = df['Product_Info_4'] == 1

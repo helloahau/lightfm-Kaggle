@@ -1,7 +1,8 @@
+from importlib import reload
+
 import pandas as pd
 import sys 
 reload(sys) 
-sys.setdefaultencoding('utf8')
 
 def encode_text(data):
 	# This function converts the data into type "str".
@@ -25,7 +26,7 @@ def translate():
 
 	# Path to files downloaded from Kaggle
 	path = "../Data/Data_japanese/" 
-	df = pd.read_excel(path + "/documentation/documentation/CAPSULE_TEXT_Translation.xlsx",skiprows=5)
+	df = pd.read_excel(path + "/documentation/CAPSULE_TEXT_Translation.xlsx",skiprows=5)
 	
 	# Dict for feature "CAPSULE_TEXT" translation.
 	k = [ encode_text(x) for x in df["CAPSULE_TEXT"] ] 
@@ -46,7 +47,7 @@ def translate():
 	files += ["user_list"]
 	
 	for f in files:
-		print "Processing file: %s" % f
+		print("Processing file: %s" % f)
 		df = pd.read_csv(path + f + ".csv")
 		if "CAPSULE_TEXT" in df.columns.values :
 			df["CAPSULE_TEXT"] = [ capsuleText[encode_text(x)] for x in df["CAPSULE_TEXT"] ]

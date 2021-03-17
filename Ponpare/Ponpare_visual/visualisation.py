@@ -43,7 +43,7 @@ def plot_PCA():
     print("explained variance ratio (first two components): %s"
           % str(pca.explained_variance_ratio_))
 
-    print X_uchar[:10]
+    print(X_uchar[:10])
 
     plt.figure(1)
     plt.scatter(X_uchar[:,0][(uchar["SEX_ID"] == "f").values], X_uchar[:,1][(uchar["SEX_ID"] == "f").values], c="b", label = "female", alpha = 0.5)

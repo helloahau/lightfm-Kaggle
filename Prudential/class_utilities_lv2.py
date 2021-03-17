@@ -3,9 +3,9 @@ import numpy as np
 #Set the seed
 ##############
 np.random.seed(1000)
-print "-"*20
-print "SEED set to 1000" 
-print "-"*20
+print("-"*20)
+print("SEED set to 1000" )
+print("-"*20)
 
 from sklearn.base import BaseEstimator
 import sklearn.cross_validation as cv
@@ -88,7 +88,7 @@ class Level2Model():
         list_score = []
         num_classes = 8
         for icv, (train_indices, cv_indices) in enumerate(kf):
-            print "CV fold:", str(icv+1) + "/" + str(n_folds)
+            print("CV fold:", str(icv+1) + "/" + str(n_folds))
             X_train, y_train = X[train_indices], y[train_indices]
             X_cv, y_cv = X[cv_indices], y[cv_indices]
 
@@ -106,10 +106,10 @@ class Level2Model():
                 y_pred_cv = bst.predict(xgcv)
                 # Score test sample
                 score = self._score_reg(y_pred_cv, y_cv)
-                print "Uncalibrated Kappa :", score
+                print("Uncalibrated Kappa :", score)
 
                 # train offsets 
-                print "Train standard offset"
+                print("Train standard offset")
                 offsets = np.array([0.1, -1, -2, -1, -0.8, 0.02, 0.8, 1])
                 data = np.vstack((bst.predict(xgtrain), bst.predict(xgtrain), y_train))
                 for j in range(num_classes):
@@ -124,7 +124,7 @@ class Level2Model():
                     data[1, data[0].astype(int) ==j] = data[0, data[0].astype(int)==j] + offsets[j] 
 
                 final_y_xgb_cv = np.round(np.clip(data[1], 1, 8)).astype(int)
-                print "Calibrated Kappa: ", eval_wrapper(final_y_xgb_cv, y_cv)
+                print("Calibrated Kappa: ", eval_wrapper(final_y_xgb_cv, y_cv))
                 list_score.append(eval_wrapper(final_y_xgb_cv, y_cv))
 
             # Linear regression for stacking
@@ -134,10 +134,10 @@ class Level2Model():
                 y_pred_cv = clf.predict(X_cv)
                 # Score test sample
                 score = self._score_reg(y_pred_cv, y_cv)
-                print "Kappa :", score
+                print("Kappa :", score)
 
                 # train offsets 
-                print "Train standard offset"
+                print("Train standard offset")
                 offsets = np.array([0.1, -1, -2, -1, -0.8, 0.02, 0.8, 1])
                 data = np.vstack((clf.predict(X_train), clf.predict(X_train), y_train))
                 for j in range(num_classes):
@@ -152,10 +152,10 @@ class Level2Model():
                     data[1, data[0].astype(int) ==j] = data[0, data[0].astype(int)==j] + offsets[j] 
 
                 final_y_lin_cv = np.round(np.clip(data[1], 1, 8)).astype(int)
-                print "Calibrated Kappa: ", eval_wrapper(final_y_lin_cv, y_cv)
+                print("Calibrated Kappa: ", eval_wrapper(final_y_lin_cv, y_cv))
                 list_score.append(eval_wrapper(final_y_lin_cv, y_cv))
 
-        print np.mean(list_score),"+/-",np.std(list_score)
+        print(np.mean(list_score),"+/-",np.std(list_score))
 
 
     def ensemble(self):
@@ -197,7 +197,7 @@ class Level2Model():
             y_pred_test = bst.predict(xgtest)
 
             # train offsets 
-            print "Train standard offset"
+            print("Train standard offset")
             offsets = np.array([0.1, -1, -2, -1, -0.8, 0.02, 0.8, 1])
             data = np.vstack((bst.predict(xgtrain), bst.predict(xgtrain), y_train))
             for j in range(num_classes):
@@ -223,7 +223,7 @@ class Level2Model():
             # Score test sample
 
             # train offsets 
-            print "Train standard offset"
+            print("Train standard offset")
             offsets = np.array([0.1, -1, -2, -1, -0.8, 0.02, 0.8, 1])
             data = np.vstack((clf.predict(X_train), clf.predict(X_train), y_train))
             for j in range(num_classes):

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import cPickle as pickle
+import pickle
 from datetime import date
 import calendar
 import os
@@ -10,7 +10,7 @@ def create_validation_set(week_test_start, week_test_end, week_ID):
 	args : Validation week start and end date, Validation week ID
 	"""
 
-	print "Creating validation set for week: %s" % week_ID
+	print("Creating validation set for week: %s" % week_ID)
 
 	Validation_path = "../Data/Validation/" + week_ID + "/"
 	if not os.path.exists(Validation_path) :
@@ -92,7 +92,7 @@ def create_validation_set(week_test_start, week_test_end, week_ID):
 		except KeyError :
 			pass
 	#Save to pickle
-	with open("../Data/Validation/" + week_ID + "/dict_purchase_validation_" + week_ID + ".pickle", "w") as fp:
+	with open("../Data/Validation/" + week_ID + "/dict_purchase_validation_" + week_ID + ".pickle", "wb") as fp:
 			pickle.dump(d_user_purchase, fp)
 
 	#Get dict with list of users for various categories
@@ -103,14 +103,14 @@ def create_validation_set(week_test_start, week_test_end, week_ID):
 	d_user_list["view_no_detail_user"] = [us for us in d_user_list["view_user"] if us not in d_user_list["detail_user"] ]
 	d_user_list["no_view_no_detail_user"] = [us for us in d_user_list["all_user"] if us not in d_user_list["detail_user"] and us not in d_user_list["view_user"] ]
 	#Save to pickle
-	with open("../Data/Validation/" + week_ID + "/dict_user_list_validation_" + week_ID + ".pickle", "w") as fp:
+	with open("../Data/Validation/" + week_ID + "/dict_user_list_validation_" + week_ID + ".pickle", "wb") as fp:
 			pickle.dump(d_user_list, fp)
 
 
 if __name__ == "__main__":
 
-	create_validation_set([2012,06,17], [2012, 06, 23], "week52")
-	create_validation_set([2012,06,10], [2012, 06, 16], "week51")
+	create_validation_set([2012,6,17], [2012, 6, 23], "week52")
+	#create_validation_set([2012,6,10], [2012, 6, 16], "week51")
 
 	#Create more validation sets if needed
 	# create_validation_set([2012,06,3], [2012, 06, 9], "week50")

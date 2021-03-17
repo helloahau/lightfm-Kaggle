@@ -68,19 +68,19 @@ if __name__ == "__main__":
 
 	# If models have not been trained, train them
 	if not os.path.isfile("../Data/Data_translated/d_pred_similarity.pickle"):
-		print "Fitting similarity model"
+		print("Fitting similarity model")
 		sim.get_similarity_distance(var_choice, metric)
 	if not os.path.isfile("../Data/Data_translated/d_pred_lightfm.pickle"):
-		print "Fitting lightfm model"
+		print("Fitting lightfm model")
 		pl.fit_lightfm_model()
 	if not os.path.isfile("../Data/Data_translated/d_pred_xgb_rank_pairwise.pickle"):
-		print "Fitting xgb rank_pairwise model"
+		print("Fitting xgb rank_pairwise model")
 		sl.fit_xgboost("rank:pairwise")
 	if not os.path.isfile("../Data/Data_translated/d_pred_xgb_reg_linear.pickle"):
-		print "Fitting xgb reg_linear model"
+		print("Fitting xgb reg_linear model")
 		sl.fit_xgboost("reg:linear")
 	if not os.path.isfile("../Data/Data_translated/d_pred_SVM.pickle"):
-		print "Fitting SVM rank model"
+		print("Fitting SVM rank model")
 		sl.fit_SVM()
 
 	#Blend predictions

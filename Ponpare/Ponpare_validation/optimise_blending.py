@@ -99,7 +99,7 @@ def optimise_blend(list_week_ID):
 
         list_score = np.array(list_score)
 
-        print objective_function.n_iterations, \
+        print(objective_function.n_iterations, \)
             "w_sim, w_rank, w_reg, w_SVM, w_lightfm =", w_sim, w_rank, w_reg, w_SVM, w_lightfm, \
             "\nList_score = ", list_score, \
             "\nMean of MAP = ", np.mean(list_score), \
@@ -116,7 +116,7 @@ def optimise_blend(list_week_ID):
         algo=tpe.suggest,
         max_evals=10)
 
-    print best
+    print(best)
     objective_function(tuple([best[key] for key in ["w_sim", "w_rank", "w_reg", "w_SVM", "w_lightfm"]]))    
 
 if __name__ == '__main__':

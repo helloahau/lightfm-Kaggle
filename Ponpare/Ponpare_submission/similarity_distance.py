@@ -13,7 +13,7 @@ def predict_sex():
     from the coupon information
     """
 
-    print "Fitting xgboost model to infer purchaser sex from coupon features"
+    print("Fitting xgboost model to infer purchaser sex from coupon features")
 
     # Load coupon test vector
     train = pd.read_csv("../Data/Data_translated/coupon_train_aggregated_LE_translated.csv")

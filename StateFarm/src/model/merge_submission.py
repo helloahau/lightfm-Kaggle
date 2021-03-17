@@ -29,7 +29,7 @@ def merge(merge_type):
     # Check the sort
     list_img = list_df[0].img.values
     for i, df in enumerate(list_df[1:]):
-        print list_path[i], np.array_equal(list_img, df.img.values)
+        print(list_path[i], np.array_equal(list_img, df.img.values))
 
     list_c = ['c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9']
 
@@ -49,7 +49,7 @@ def merge(merge_type):
         df2 = pd.read_csv('../../reports/submissions/geom_resnet_E5-7-8-9.csv')
         plt.scatter(df.c0, df2.c0)
         plt.show()
-        print df_geom.head()
+        print(df_geom.head())
         df_geom.to_csv(
             "../../reports/submissions/geom_VGGCAM_E3.csv", index=False)
 
@@ -63,7 +63,7 @@ def merge(merge_type):
             arr = [len(np.where(arr_argmax[i, :] == k)[0]) / float(arr_argmax.shape[1]) for k in range(10)]
             list_prob.append(arr)
         arr_prob = np.vstack(list_prob)
-        print arr_prob.shape
+        print(arr_prob.shape)
         df_vote = list_df[0]["img"].copy().to_frame()
         for i, c in enumerate(list_c):
             df_vote[c] = arr_prob[:, i]
@@ -76,9 +76,9 @@ def merge(merge_type):
 
     else:
         df_mean = pd.concat(list_df).groupby("img").mean()
-        print df_mean.head()
+        print(df_mean.head())
         df_mean.reset_index(level='img', inplace=True)
-        print df_mean.head()
+        print(df_mean.head())
         # Check against a working df
         df2 = pd.read_csv('../../reports/submissions/geom_resnet_E5-7-8-9.csv')
         plt.scatter(df_mean.c0, df2.c0)

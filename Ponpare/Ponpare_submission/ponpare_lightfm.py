@@ -22,8 +22,8 @@ def fit_lightfm_model():
 	itrf      = spi.mmread("../Data/Data_translated/train_item_feat_mtrx.mtx")
 	itef      = spi.mmread("../Data/Data_translated/test_item_feat_mtrx.mtx")
 	
-	#Print shapes as a check
-	print "user_features shape: %s,\nitem train features shape: %s,\nitem test features shape: %s"   % (uf.shape, itrf.shape, itef.shape)
+	#Print(shapes as a check)
+	print("user_features shape: %s,\nitem train features shape: %s,\nitem test features shape: %s"   % (uf.shape, itrf.shape, itef.shape))
 	
 	#Load test coupon  and user lists
 	cplte       = pd.read_csv("../Data/Data_translated/coupon_list_test_translated.csv")
